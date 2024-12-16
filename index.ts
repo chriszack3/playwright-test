@@ -1,8 +1,8 @@
-import { addExtra } from 'playwright-extra';
-import stealth from 'puppeteer-extra-plugin-stealth';
-import playwright, { Page } from 'playwright';
-import { Cluster } from 'playwright-cluster';
-import { scrapeGoogle } from './functions/scrapeGoogle';
+// import { addExtra } from 'playwright-extra';
+// import stealth from 'puppeteer-extra-plugin-stealth';
+// import playwright, { Page } from 'playwright';
+// import { Cluster } from 'playwright-cluster';
+// import { scrapeGoogle } from './functions/scrapeGoogle';
 //import { init, addHeadlines, getAllHeadlines } from './persistence/mysql';
 
 // const chromium = addExtra(playwright.chromium);
