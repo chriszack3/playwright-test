@@ -13,7 +13,7 @@ RUN yarn build
 # Production
 FROM node:20-bookworm
 # install playwright browsers, browser dependencies
-RUN npx -y playwright@1.47.1 install --with-deps chromium
+#RUN npx -y playwright@1.47.1 install --with-deps chromium
 WORKDIR /app
 COPY package.json yarn.lock ./
 # install only production dependencies
