@@ -121,7 +121,10 @@ services:
       resources:
         limits:
           cpus: '0.1'
-          memory: 200M
+          memory: 400M
+        reservations:
+          cpus: '0.1'
+          memory: 400M
     volumes:
       - todo-mysql-data:/var/lib/mysql
     environment:
