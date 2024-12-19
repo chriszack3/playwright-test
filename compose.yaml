@@ -120,8 +120,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.01'
-          memory: 100M
+          cpus: '0.1'
+          memory: 200M
     volumes:
       - todo-mysql-data:/var/lib/mysql
     environment:
