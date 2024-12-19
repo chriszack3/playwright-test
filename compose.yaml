@@ -112,6 +112,11 @@ services:
     #   traefik.http.services.phpmyadmin.loadbalancer.server.port: 80
   mysql:
     image: mysql:8.0
+    deploy:
+      resources:
+        limits:
+          cpus: '0.01'
+          memory: 100M
     volumes:
       - todo-mysql-data:/var/lib/mysql
     environment:
