@@ -29,6 +29,7 @@ const {
     await cluster.queue(async ({ page }: { page: Page }) => {
         try {
             console.log('Beginning scrape...');
+            console.log('All headlines', await getAllHeadlines());
             const headlines = await scrapeGoogle(page, searchTerm);
             console.log('Scrape successful!');
             console.log('Headlines:', headlines);
