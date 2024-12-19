@@ -3,7 +3,7 @@ import stealth from 'puppeteer-extra-plugin-stealth';
 import playwright, { Page } from 'playwright';
 import { Cluster } from 'playwright-cluster';
 import { scrapeGoogle } from './functions/scrapeGoogle';
-//import { init, addHeadlines, getAllHeadlines } from './persistence/mysql';
+import { init, addHeadlines, getAllHeadlines } from './persistence/mysql';
 
 const chromium = addExtra(playwright.chromium);
 chromium.use(stealth());
@@ -14,7 +14,7 @@ const {
 
 (async () => {
     console.log('Initializing connection to database...');
-    //await init()
+    await init()
     console.log('Connection to database initialized!');
 
     const cluster = await Cluster.launch({
@@ -33,7 +33,7 @@ const {
             console.log('Scrape successful!');
             console.log('Headlines:', headlines);
             console.log('Adding headlines to database...');
-            //await addHeadlines(headlines)
+            await addHeadlines(headlines)
             console.log('Headlines added to database!');
             console.log('Done!')
         } catch (error) {
@@ -41,7 +41,7 @@ const {
             console.error(error);
         }
     });
-    setInterval(async () => { 
+    setInterval(async () => {
         await cluster.queue(async ({ page }: { page: Page }) => {
             try {
                 console.log('Beginning scrape...');
@@ -49,7 +49,7 @@ const {
                 console.log('Scrape successful!');
                 console.log('Headlines:', headlines);
                 console.log('Adding headlines to database...');
-                //await addHeadlines(headlines)
+                await addHeadlines(headlines)
                 console.log('Headlines added to database!');
                 console.log('Done!')
             } catch (error) {
@@ -59,5 +59,3 @@ const {
         });
     }, 30000)
 })();
-
-// console.log('Show this running in AWS');

@@ -1,0 +1,122 @@
+services:
+  playwright-app-1:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: sh -c "yarn start"
+    ports:
+      - 127.0.0.1:3001:3000
+    working_dir: /app
+    # volumes:
+    #   - ./:/app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: headlines
+      MYSQL_TABLE: Israel_Iran_Response
+      SEARCH_TERM: israel iran response
+      DATA_TOKEN: 0xedb7b548a59f22986cceb2ab50e6d97df6ef5c58a10a2e755f452ef230c522bd
+    depends_on:
+      - mysql 
+  # playwright-app-2:
+  #   build:
+  #     context: ./playwright
+  #     dockerfile: Dockerfile
+  #   command: sh -c "yarn start"
+  #   ports:
+  #     - 127.0.0.1:3002:3000
+  #   working_dir: /app
+  #   # volumes:
+  #   #   - ./:/app
+  #   environment:
+  #     MYSQL_HOST: mysql
+  #     MYSQL_USER: root
+  #     MYSQL_PASSWORD: secret
+  #     MYSQL_DB: headlines
+  #     MYSQL_TABLE: Trump_Rogan_2024
+  #     SEARCH_TERM: trump joe rogan
+  #     DATA_TOKEN: 0x6689c157a7c57f0ee8ab7feace215061cbb8828191854fe81f17976ef33b023e
+  #   depends_on:
+  #     - mysql 
+  # playwright-app-3:
+  #   build:
+  #     context: ./playwright
+  #     dockerfile: Dockerfile
+  #   command: sh -c "yarn start"
+  #   ports:
+  #     - 127.0.0.1:3003:3000
+  #   working_dir: /app
+  #   # volumes:
+  #   #   - ./:/app
+  #   environment:
+  #     MYSQL_HOST: mysql
+  #     MYSQL_USER: root
+  #     MYSQL_PASSWORD: secret
+  #     MYSQL_DB: headlines
+  #     MYSQL_TABLE: Trump_Detroit_Rally
+  #     SEARCH_TERM: trump detroit rally
+  #     DATA_TOKEN: 0x75fe35ae228b5cc76709a5313435c979b25a464394e7cab9a1429928f055a01e
+  #   depends_on:
+  #     - mysql 
+  # proxy:
+  #   image: traefik:v2.11
+  #   command: --providers.docker
+  #   ports:
+  #     - 80:80
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  # backend:
+  #   build:
+  #     context: ./dashboard
+  #     target: backend-dev
+  #   environment:
+  #     MYSQL_HOST: mysql
+  #     MYSQL_USER: root
+  #     MYSQL_PASSWORD: secret
+  #     MYSQL_DB: headlines
+  #   develop:
+  #     watch:
+  #       - path: ./dashboard/backend/src
+  #         action: sync
+  #         target: /usr/local/app/src
+  #       - path: ./dashboard/backend/package.json
+  #         action: rebuild
+  #   labels:
+  #     traefik.http.routers.backend.rule: Host(`localhost`) && PathPrefix(`/api`)
+  #     traefik.http.services.backend.loadbalancer.server.port: 3000  
+  #   depends_on:
+  #     - mysql 
+  # client:
+  #   build:
+  #     context: ./dashboard
+  #     target: client-dev
+  #   develop:
+  #     watch:
+  #       - path: ./dashboard/client/src
+  #         action: sync
+  #         target: /usr/local/app/src
+  #       - path: ./dashboard/client/package.json
+  #         action: rebuild
+  #   labels:
+  #     traefik.http.routers.client.rule: Host(`localhost`)
+  #     traefik.http.services.client.loadbalancer.server.port: 5173
+  # phpmyadmin:
+  #   image: phpmyadmin
+  #   environment:
+  #     PMA_HOST: mysql
+  #     PMA_USER: root
+  #     PMA_PASSWORD: secret
+    # labels:
+    #   traefik.http.routers.phpmyadmin.rule: Host(`db.localhost`)
+    #   traefik.http.services.phpmyadmin.loadbalancer.server.port: 80
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: headlines
+
+volumes:
+  todo-mysql-data:
