@@ -115,6 +115,8 @@ services:
       PMA_HOST: mysql
       PMA_USER: root
       PMA_PASSWORD: secret
+    ports:
+      - 8080:80
     # labels:
     #   traefik.http.routers.phpmyadmin.rule: Host(`db.localhost`)
     #   traefik.http.services.phpmyadmin.loadbalancer.server.port: 80
