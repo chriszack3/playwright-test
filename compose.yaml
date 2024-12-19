@@ -9,6 +9,11 @@ services:
     working_dir: /app
     # volumes:
     #   - ./:/app
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.9'
+          memory: 400M
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
