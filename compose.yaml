@@ -110,13 +110,13 @@ services:
     # labels:
     #   traefik.http.routers.phpmyadmin.rule: Host(`db.localhost`)
     #   traefik.http.services.phpmyadmin.loadbalancer.server.port: 80
-  mysql:
-    image: mysql:8.0
-    volumes:
-      - todo-mysql-data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: headlines
+  # mysql:
+  #   image: mysql:8.0
+  #   volumes:
+  #     - todo-mysql-data:/var/lib/mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: secret
+  #     MYSQL_DATABASE: headlines
 
 volumes:
   todo-mysql-data:
