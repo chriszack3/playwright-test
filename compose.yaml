@@ -11,8 +11,11 @@ services:
     #   - ./:/app
     deploy:
       resources:
+        limits:
+          cpus: '0.8'
+          memory: 400M
         reservations:
-          cpus: '0.9'
+          cpus: '0.8'
           memory: 400M
     environment:
       MYSQL_HOST: mysql
