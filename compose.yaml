@@ -22,8 +22,8 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: secret
       MYSQL_DB: headlines
-      MYSQL_TABLE: Israel_Iran_Response
-      SEARCH_TERM: israel iran response
+      MYSQL_TABLE: US_Gov_Shutdown
+      SEARCH_TERM: us government shutdown
       DATA_TOKEN: 0xedb7b548a59f22986cceb2ab50e6d97df6ef5c58a10a2e755f452ef230c522bd
     depends_on:
       - mysql 
