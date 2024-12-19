@@ -17,8 +17,8 @@ services:
       MYSQL_TABLE: Israel_Iran_Response
       SEARCH_TERM: israel iran response
       DATA_TOKEN: 0xedb7b548a59f22986cceb2ab50e6d97df6ef5c58a10a2e755f452ef230c522bd
-    depends_on:
-      - mysql 
+    # depends_on:
+    #   - mysql 
   # playwright-app-2:
   #   build:
   #     context: ./playwright
