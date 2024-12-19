@@ -116,7 +116,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: secret
     labels:
-      traefik.http.routers.phpmyadmin.rule: Host(`db.localhost`)
+      traefik.http.routers.phpmyadmin.rule: Host(`ec2-52-15-253-135.us-east-2.compute.amazonaws.com`)
       traefik.http.services.phpmyadmin.loadbalancer.server.port: 80
   mysql:
     image: mysql:8.0
