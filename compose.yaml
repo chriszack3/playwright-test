@@ -109,12 +109,12 @@ services:
   #   labels:
   #     traefik.http.routers.client.rule: Host(`localhost`)
   #     traefik.http.services.client.loadbalancer.server.port: 5173
-  # phpmyadmin:
-  #   image: phpmyadmin
-  #   environment:
-  #     PMA_HOST: mysql
-  #     PMA_USER: root
-  #     PMA_PASSWORD: secret
+  phpmyadmin:
+    image: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: secret
     # labels:
     #   traefik.http.routers.phpmyadmin.rule: Host(`db.localhost`)
     #   traefik.http.services.phpmyadmin.loadbalancer.server.port: 80
