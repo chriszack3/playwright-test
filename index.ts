@@ -1,12 +1,12 @@
 import { addExtra } from 'playwright-extra';
-//import stealth from 'puppeteer-extra-plugin-stealth';
+import stealth from 'puppeteer-extra-plugin-stealth';
 import playwright, { Page } from 'playwright';
 import { Cluster } from 'playwright-cluster';
 import { scrapeGoogle } from './functions/scrapeGoogle';
 import { init, addHeadlines, getAllHeadlines } from './persistence/mysql';
 
 const chromium = addExtra(playwright.chromium);
-//chromium.use(stealth());
+chromium.use(stealth());
 
 const {
     SEARCH_TERM: searchTerm = 'Another Debate 2024',
@@ -21,7 +21,7 @@ const {
         concurrency: Cluster.CONCURRENCY_BROWSER,
         maxConcurrency: 1,
         playwright: chromium,
-        timeout: 10000,
+        timeout: 100000,
         playwrightOptions: {
             headless: true,
             args: ['--no-sandbox', '--disable-gpu']
