@@ -12,11 +12,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.8'
-          memory: 400M
+          cpus: '0.9'
+          memory: 900M
         reservations:
           cpus: '0.8'
-          memory: 400M
+          memory: 800M
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
