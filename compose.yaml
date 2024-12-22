@@ -25,8 +25,10 @@ services:
       MYSQL_TABLE: US_Gov_Shutdown
       SEARCH_TERM: us government shutdown
       DATA_TOKEN: 0xedb7b548a59f22986cceb2ab50e6d97df6ef5c58a10a2e755f452ef230c522bd
+    restart: always
     depends_on:
-      - mysql 
+      mysql:
+        condition: service_healthy
   # playwright-app-2:
   #   build:
   #     context: ./playwright
@@ -128,6 +130,12 @@ services:
         reservations:
           cpus: '0.1'
           memory: 400M
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     volumes:
       - todo-mysql-data:/var/lib/mysql
     environment:
