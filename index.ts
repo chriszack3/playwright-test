@@ -19,11 +19,12 @@ const {
 
     const cluster = await Cluster.launch({
         concurrency: Cluster.CONCURRENCY_BROWSER,
-        maxConcurrency: 2,
+        maxConcurrency: 1,
         playwright: chromium,
         timeout: 10000,
         playwrightOptions: {
             headless: true,
+            args: ['--no-sandbox', '--disable-gpu']
         }
     });
     await cluster.queue(async ({ page }: { page: Page }) => {
