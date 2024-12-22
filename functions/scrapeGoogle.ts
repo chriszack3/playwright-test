@@ -1,6 +1,8 @@
 import { Page } from 'playwright';
 
 export const scrapeGoogle = async (page: Page, search: string) => {
+    page.setDefaultTimeout(100000);
+    page.setDefaultNavigationTimeout(100000);
     await page.setViewportSize({ width: 1920, height: 1080 });
     await page.goto('https://www.google.com/');
     await page.fill('textarea', search)
