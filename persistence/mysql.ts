@@ -42,6 +42,9 @@ const init = async() => {
 const addHeadlines = async (records: any) => {
     const record = records[0];
     return await records.map(async (rec: any) => { 
+        if (rec?.url?.length > 255) { 
+            rec.url = rec.url.slice(0, 254);
+        }
         return await pool.query(
             `INSERT INTO ${TABLE} (scrapedAtMS, publisher, title, url, description, publishedAgo) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE title=title;`,
             [rec.scrapedAtMS, rec.publisher, rec.title, rec.url, rec.description, rec.publishedAgo]
