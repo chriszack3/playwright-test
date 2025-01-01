@@ -7,6 +7,8 @@ const {
     MYSQL_PASSWORD: PASSWORD,
     MYSQL_DB: DB,
     MYSQL_TABLE: TABLE,
+    MYSQL_TABLE_2: TABLE_2,
+    MYSQL_TABLE_3: TABLE_3,
     DATA_TOKEN: TOKEN
 } = process.env;
 // Create the connection pool. The pool-specific settings are the defaults
@@ -34,19 +36,21 @@ const init = async() => {
         charset: 'utf8mb4',
     });
     await pool.query(`CREATE TABLE IF NOT EXISTS ${TABLE} (id INT AUTO_INCREMENT PRIMARY KEY, scrapedAtMS BIGINT, publisher VARCHAR(255), title VARCHAR(255) UNIQUE, url VARCHAR(255), description VARCHAR(255), publishedAgo VARCHAR(255));`)
+    await pool.query(`CREATE TABLE IF NOT EXISTS ${TABLE_2} (id INT AUTO_INCREMENT PRIMARY KEY, scrapedAtMS BIGINT, publisher VARCHAR(255), title VARCHAR(255) UNIQUE, url VARCHAR(255), description VARCHAR(255), publishedAgo VARCHAR(255));`)
+    await pool.query(`CREATE TABLE IF NOT EXISTS ${TABLE_3} (id INT AUTO_INCREMENT PRIMARY KEY, scrapedAtMS BIGINT, publisher VARCHAR(255), title VARCHAR(255) UNIQUE, url VARCHAR(255), description VARCHAR(255), publishedAgo VARCHAR(255));`)
     await pool.query(`CREATE TABLE IF NOT EXISTS MARKET_TOKENS (id INT AUTO_INCREMENT PRIMARY KEY, token VARCHAR(255) UNIQUE, name VARCHAR(255));`)
     await pool.query(`INSERT INTO MARKET_TOKENS (token, name) VALUES ('${TOKEN}', '${TABLE}') ON DUPLICATE KEY UPDATE token=token;`)
     return 
 }
 
-const addHeadlines = async (records: any) => {
+const addHeadlines = async (records: any, table: string) => {
     const record = records[0];
     return await records.map(async (rec: any) => { 
         if (rec?.url?.length > 255) { 
             rec.url = rec.url.slice(0, 254);
         }
         return await pool.query(
-            `INSERT INTO ${TABLE} (scrapedAtMS, publisher, title, url, description, publishedAgo) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE title=title;`,
+            `INSERT INTO ${table} (scrapedAtMS, publisher, title, url, description, publishedAgo) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE title=title;`,
             [rec.scrapedAtMS, rec.publisher, rec.title, rec.url, rec.description, rec.publishedAgo]
         );
     })

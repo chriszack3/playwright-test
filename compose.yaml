@@ -13,7 +13,7 @@ services:
       resources:
         limits:
           cpus: '0.9'
-          memory: 900M
+          memory: 1200M
         reservations:
           cpus: '0.8'
           memory: 800M
@@ -24,6 +24,10 @@ services:
       MYSQL_DB: headlines
       MYSQL_TABLE: Israel_Hamas_Ceasefire
       SEARCH_TERM: israel hamas ceasefire
+      MYSQL_TABLE_2: Elon_Musk_DOGE
+      SEARCH_TERM_2: elon musk DOGE
+      MYSQL_TABLE_3: Trump_Rogan_2024
+      SEARCH_TERM_3: trump joe rogan
       DATA_TOKEN: 0xedb7b548a59f22986cceb2ab50e6d97df6ef5c58a10a2e755f452ef230c522bd
     restart: always
     depends_on:
